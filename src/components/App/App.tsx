@@ -8,9 +8,11 @@ import { useEffect } from "react";
 
 const App = () => {
   const { fetchCategories } = useActions();
+  const { fetchProducts } = useActions();
 
   useEffect(() => {
-    fetchCategories()
+    fetchCategories();
+    fetchProducts();
   }, []);
   
   return (
