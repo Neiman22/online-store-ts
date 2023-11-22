@@ -13,7 +13,7 @@ const App = () => {
   useEffect(() => {
     fetchCategories();
     fetchProducts();
-  }, []);
+  }, [fetchCategories, fetchProducts]);
   
   return (
     <div className="app">
