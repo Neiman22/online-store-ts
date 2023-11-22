@@ -1,10 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { useEffect } from "react";
 
 import styles from "../../styles/Sidebar.module.css";
 
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { useActions } from "../../hooks/useActions";
 
 const Sidebar = () => {
   const { categories } = useTypedSelector(({ categories }) => categories);
