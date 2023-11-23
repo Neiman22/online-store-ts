@@ -28,7 +28,7 @@ const Home = () => {
       <Products products={products} amount={5} title='Trending' />
       <Categories categories={categories.categories} amount={5} title='Worth seeing' />
       <Banner />
-      <Products products={filtered} amount={5} title='Trending' />
+      <Products products={filtered} amount={5} title='Less than 100$' />
     </>
   )
 }
