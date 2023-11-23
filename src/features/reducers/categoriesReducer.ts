@@ -9,11 +9,11 @@ const initialState: CategoriesState = {
 export const categoriesReducer = (state = initialState, action: CategoriesAction): CategoriesState => {
   switch (action.type) {
     case CategoriesActionType.FETCH_CATEGORIES:
-      return { loading: true, error: null, categories:[] }
+      return { ...state, loading: true }
     case CategoriesActionType.FETCH_CATEGORIES_SUCCESS:
-      return { loading: false, error: null, categories: action.payload }
+      return { ...state, loading: false, categories: action.payload }
     case CategoriesActionType.FETCH_CATEGORIES_ERROR:
-      return { loading: false, error: action.payload, categories:[] }
+      return { ...state, loading: false, error: action.payload }
     default:
       return state;
   }

@@ -16,3 +16,8 @@ export const fetchProducts = () => {
     }
   }
 }
+
+export const filterByPrice = (maxPrice: number): ProductsAction => ({
+  type: ProductsActionType.FILTER_BY_PRICE,
+  payload: maxPrice,
+});
