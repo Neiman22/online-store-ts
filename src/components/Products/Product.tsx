@@ -5,11 +5,9 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "../../utils/routes";
 
 import styles from "../../styles/Product.module.css";
-import { IProduct } from "../../features/types/products";
+import { IProduct } from "../../features/types/product";
 
-//import { addItemToCart } from "../../features/user/userSlice";
-
-const SIZES = [4, 4.5, 5];
+const SIZES = [48, 50, 52, 54, 56];
 
 const Product: React.FC<{ item: IProduct }> = ({ item }) => {
   const { title, price, images, description } = item;
@@ -23,12 +21,7 @@ const Product: React.FC<{ item: IProduct }> = ({ item }) => {
     setCurrentImage(images[0]);
   }, [images]);
 
-  /*
-  const dispatch = useDispatch();
-  const addToCart = () => {
-    dispatch(addItemToCart(item));
-  };
-  */
+
   return (
     <section className={styles.product}>
       <div className={styles.images}>

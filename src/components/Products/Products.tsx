@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import styles from "../../styles/Products.module.css";
-import { IProduct } from "../../features/types/products";
+import { IProduct } from "../../features/types/product";
 
 interface ProductsProps {
   title: string;
