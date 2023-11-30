@@ -2,17 +2,17 @@ import { NavLink } from "react-router-dom";
 
 import styles from "../../styles/Sidebar.module.css";
 
-import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { categoriesApi } from "../../store/services/categoriesApi";
 
 const Sidebar = () => {
-  const { categories } = useTypedSelector(({ categories }) => categories);
+  const { data } = categoriesApi.useGetAllCategoriesQuery('')
 
   return (
     <section className={styles.sidebar}>
       <div className={styles.title}>CATEGORIES</div>
       <nav>
         <ul className={styles.menu}>
-          {categories.map(({ id, name }) =>
+          {data && data.map(({ id, name }) =>
             <li key={id}>
               <NavLink
                 className={({ isActive }) =>

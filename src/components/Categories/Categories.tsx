@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import styles from "../../styles/Categories.module.css";
-import { ICategory } from "../../features/types/categories";
+import { ICategory } from "../../store/types";
 
 interface CategoriesProps {
   title: string;

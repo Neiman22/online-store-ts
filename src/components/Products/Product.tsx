@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "../../utils/routes";
 
 import styles from "../../styles/Product.module.css";
-import { IProduct } from "../../features/types/product";
+import { IProduct } from "../../store/types";
 
 const SIZES = [48, 50, 52, 54, 56];
 

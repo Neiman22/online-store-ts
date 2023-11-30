@@ -3,18 +3,7 @@ import Header from "../Header/Header";
 import AppRoutes from "../Routes/AppRoutes";
 import Sidebar from "../Sidebar/Sidebar";
 
-import { useActions } from "../../hooks/useActions";
-import { useEffect } from "react";
-
-const App = () => {
-  const { fetchCategories } = useActions();
-  const { fetchProducts } = useActions();
-
-  useEffect(() => {
-    fetchCategories();
-    fetchProducts();
-  }, [fetchCategories, fetchProducts]);
-  
+const App = () => {  
   return (
     <div className="app">
       <Header />

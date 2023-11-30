@@ -1,20 +1,21 @@
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-
-import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { useActions } from "../../hooks/useActions";
+import { useNavigate, useParams } from "react-router-dom";
+import { productsApi } from "../../store/services/productsApi";
 
 import Product from "./Product";
+import { useEffect } from "react";
+import { ROUTES } from "../../utils/routes";
 
 const SingleProduct = () => {
   const { id } = useParams();
-  const { fetchSingleProduct } = useActions();
-  const data = useTypedSelector(state => state.product.data);
+  const navigate = useNavigate();
+  const { data, isLoading, isSuccess, isFetching } = productsApi.useGetProductByIdQuery(Number(id));
 
   useEffect(() => {
-    fetchSingleProduct(Number(id));
-  }, [id])
-
+    if(!isFetching && !isLoading && !isSuccess) {
+      navigate(ROUTES.HOME)
+    }
+  }, [isLoading, isSuccess, isFetching, navigate])
+  
   return !data ? (
     <section className="preloader">Loading...</section>
   ) : (
@@ -22,6 +23,7 @@ const SingleProduct = () => {
       <Product item={data} />
     </>
   );
+
 }
 
 export default SingleProduct;
