@@ -6,12 +6,20 @@ import { ROUTES } from "../../utils/routes";
 
 import styles from "../../styles/Product.module.css";
 import { IProduct } from "../../store/types";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../../store/services/userApi";
 
 const SIZES = [48, 50, 52, 54, 56];
 
 const Product: React.FC<{ item: IProduct }> = ({ item }) => {
   const { title, price, images, description } = item;
 
+  const dispatch = useDispatch();
+  const addToCart = () => {
+    const res = dispatch(addItemToCart(item));
+    console.log(res);
+  };
+  
   const [currentImage, setCurrentImage] = useState<string | undefined>();
   const [currentSize, setCurrentSize] = useState<number | undefined>();
 
@@ -68,7 +76,7 @@ const Product: React.FC<{ item: IProduct }> = ({ item }) => {
 
         <div className={styles.actions}>
           <button
-            onClick={() => {}}
+            onClick={addToCart}
             className={styles.add}
             disabled={!currentSize}
           >
