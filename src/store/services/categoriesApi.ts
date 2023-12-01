@@ -3,7 +3,7 @@ import { BASE_URL } from '../../utils/constants';
 import { ICategory } from '../types';
 
 export const categoriesApi = createApi({
-  reducerPath: 'categoriesApi',
+  reducerPath: 'categories',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL}),
   endpoints: (builder) => ({
     getAllCategories: builder.query<ICategory[], string>({

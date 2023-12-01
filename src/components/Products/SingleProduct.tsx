@@ -4,11 +4,16 @@ import { productsApi } from "../../store/services/productsApi";
 import Product from "./Product";
 import { useEffect } from "react";
 import { ROUTES } from "../../utils/routes";
+import Products from "./Products";
+import { relatedProducts } from "../../utils/functions";
 
 const SingleProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, isLoading, isSuccess, isFetching } = productsApi.useGetProductByIdQuery(Number(id));
+
+  const {data: product, isLoading, isSuccess, isFetching } = productsApi.useGetProductByIdQuery(Number(id));
+  const {data: products} = productsApi.useGetAllProductsQuery('');
+  const related = relatedProducts(products || [], product?.category.id || -1);
 
   useEffect(() => {
     if(!isFetching && !isLoading && !isSuccess) {
@@ -16,11 +21,12 @@ const SingleProduct = () => {
     }
   }, [isLoading, isSuccess, isFetching, navigate])
   
-  return !data ? (
+  return !product ? (
     <section className="preloader">Loading...</section>
   ) : (
     <>
-      <Product item={data} />
+      <Product item={product} />
+      <Products products={related ?? []} amount={5} title='Related products' />
     </>
   );
 

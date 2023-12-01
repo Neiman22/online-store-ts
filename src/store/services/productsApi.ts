@@ -4,7 +4,7 @@ import { BASE_URL } from '../../utils/constants';
 import { IProduct } from '../types';
 
 export const productsApi = createApi({
-  reducerPath: 'productsApi',
+  reducerPath: 'products',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL}),
   endpoints: (builder) => ({
     getAllProducts: builder.query<IProduct[], string>({
