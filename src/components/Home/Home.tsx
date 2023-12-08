@@ -1,5 +1,4 @@
-import { categoriesApi } from "../../store/services/categoriesApi";
-import { productsApi } from "../../store/services/productsApi";
+import { useGetAllCategoriesQuery, useGetAllProductsQuery } from "../../store/services/productsApi";
 
 import Banner from "../Baner/Baner";
 import Categories from "../Categories/Categories";
@@ -9,8 +8,8 @@ import Products from "../Products/Products"
 import { filterProductsByPrice } from "../../utils/functions";
 
 const Home = () => {
-  const {data: products} = productsApi.useGetAllProductsQuery('');
-  const {data: categories} = categoriesApi.useGetAllCategoriesQuery('');
+  const {data: products} = useGetAllProductsQuery('');
+  const {data: categories} = useGetAllCategoriesQuery('');
   const filteredProducts = filterProductsByPrice(products, 100);
 
   return (
