@@ -9,11 +9,13 @@ export interface ItemCart {
 interface UserState {
   currentUser: IUser | null;
   cart: ItemCart[];
+  favorites: IProduct[];
 }
 
 const initialState: UserState = {
   currentUser: null,
   cart: [],
+  favorites: [],
 }
 
 export const userSlice = createSlice({
@@ -27,6 +29,12 @@ export const userSlice = createSlice({
         state.cart[index].quantities += quantities;
       } else {
         state.cart.push({ product, quantities })
+      }
+    },
+    addItemToFavorites(state, { payload }: PayloadAction<IProduct>) {
+      const isAlreadyFavorite = state.favorites.some((item) => item.id === payload.id);
+      if (!isAlreadyFavorite) {
+        state.favorites.push(payload);
       }
     }
   }

@@ -126,6 +126,7 @@
   margin-top: auto;
 }
 
+.favourite:disabled,
 .add:disabled {
   cursor: not-allowed;
   background: var(--bg);

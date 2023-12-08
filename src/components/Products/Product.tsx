@@ -13,10 +13,15 @@ import { useAppSelector } from "../../hooks/redux";
 const SIZES = [48, 50, 52, 54, 56];
 
 const Product: React.FC<{ item: IProduct }> = ({ item }) => {
-  const { title, price, images, description } = item;
+  const { title, price, images, description, id } = item;
   
+  const { addItemToCart, addItemToFavorites } = useActions();
+  const user = useAppSelector(state => state.user);
+  console.log(user);
+
   const [currentImage, setCurrentImage] = useState<string | undefined>();
   const [currentSize, setCurrentSize] = useState<number | undefined>();
+  const isFavourite = user.favorites.some((favItem) => favItem.id === id);
 
   useEffect(() => {
     if (!images.length) return;
@@ -24,7 +29,6 @@ const Product: React.FC<{ item: IProduct }> = ({ item }) => {
     setCurrentImage(images[0]);
   }, [images]);
 
-  const { addItemToCart } = useActions();
   const addToCart = () => {
     const cartItem: ItemCart = {
       product: item,
@@ -33,8 +37,9 @@ const Product: React.FC<{ item: IProduct }> = ({ item }) => {
     addItemToCart(cartItem);
   }
 
-  const cart: any = useAppSelector(state => state.user.cart);
-  console.log(cart);
+  const addToFavorites = () => {
+    addItemToFavorites(item);
+  }
 
   return (
     <section className={styles.product}>
@@ -88,7 +93,13 @@ const Product: React.FC<{ item: IProduct }> = ({ item }) => {
           >
             Add to cart
           </button>
-          <button className={styles.favourite}>Add to favourites</button>
+          <button
+            onClick={addToFavorites} 
+            className={styles.favourite}
+            disabled={isFavourite}
+          >
+            Add to favourites
+          </button>
         </div>
 
         <div className={styles.bottom}>
