@@ -6,7 +6,19 @@ import styles from '../../styles/Header.module.css';
 import LOGO from '../../images/logo.svg';
 import AVATAR from '../../images/avatar.jpg';
 
+import { useAppSelector } from '../../hooks/redux';
+import { useActions } from '../../hooks/actions';
+
 const Header = () => {
+  const { currentUser } = useAppSelector(state => state.user);
+  const { toggleForm } = useActions();
+
+  const handleClick = () => {
+    if(!currentUser) {
+      toggleForm(true)
+    }
+  }
+
   return (
     <div className={styles.header}>
       <div className={styles.logo}>
@@ -16,7 +28,7 @@ const Header = () => {
       </div>
 
       <div className={styles.info}>
-        <div className={styles.user}>
+        <div className={styles.user} onClick={handleClick}>
           <div 
             className={styles.avatar} 
             style={{ backgroundImage: `url(${AVATAR})` }}

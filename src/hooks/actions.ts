@@ -3,7 +3,7 @@ import { bindActionCreators } from "redux";
 import { userActions } from "../store/services/userSlice";
 
 const actions = {
-  ...userActions
+  ...userActions,
 }
 
 export const useActions = () => {

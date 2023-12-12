@@ -17,7 +17,6 @@ const Product: React.FC<{ item: IProduct }> = ({ item }) => {
   
   const { addItemToCart, addItemToFavorites } = useActions();
   const user = useAppSelector(state => state.user);
-  console.log(user);
 
   const [currentImage, setCurrentImage] = useState<string | undefined>();
   const [currentSize, setCurrentSize] = useState<number | undefined>();

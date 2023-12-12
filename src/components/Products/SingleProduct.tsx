@@ -26,7 +26,7 @@ const SingleProduct = () => {
   ) : (
     <>
       <Product item={product} />
-      <Products products={related ?? []} amount={5} title='Related products' />
+      {related && <Products products={related} amount={5} title='Related products' />}
     </>
   );
 
