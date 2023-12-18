@@ -1,33 +1,6 @@
-import  { PayloadAction, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { IProduct, IUser } from '../types';
-import axios from 'axios';
-import { BASE_URL } from '../../utils/constants';
-
-export interface ItemCart {
-  product: IProduct;
-  quantities: number;
-}
-
-interface UserState {
-  currentUser: IUser | null;
-  cart: ItemCart[];
-  favorites: IProduct[];
-  formType: string;
-  showForm: boolean;
-}
-
-export const createUser = createAsyncThunk(
-  'users/createUser',
-  async (payload, thunkApi) => {
-    try {
-      const res = await axios.post(`${BASE_URL}/users`, payload);
-      return res.data;
-    } catch(err) {
-      console.log(err);
-      return thunkApi.rejectWithValue(err);
-    }
-  }
-)
+import  { createSlice } from '@reduxjs/toolkit';
+import { UserState } from '../types';
+import { userApi } from './userApi';
 
 const initialState: UserState = {
   currentUser: null,
@@ -41,7 +14,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    addItemToCart: (state, { payload }: PayloadAction<ItemCart>) => {
+    addItemToCart: (state, { payload }) => {
       const { product, quantities } = payload;
       const index = state.cart.findIndex((item) => item.product.id === product.id);
       if (index !== -1) {
@@ -50,18 +23,18 @@ export const userSlice = createSlice({
         state.cart.push({ product, quantities })
       }
     },
-    addItemToFavorites: (state, { payload }: PayloadAction<IProduct>) => {
+    addItemToFavorites: (state, { payload }) => {
       const isAlreadyFavorite = state.favorites.some((item) => item.id === payload.id);
       if (!isAlreadyFavorite) {
         state.favorites.push(payload);
       }
     },
-    toggleForm: (state, { payload }: PayloadAction<boolean>) => {
+    toggleForm: (state, { payload }) => {
       state.showForm = payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(createUser.fulfilled, (state, { payload }) => {
+    builder.addMatcher(userApi.endpoints.createUser.matchFulfilled, (state, { payload }) => {
       state.currentUser = payload;
     })
   }

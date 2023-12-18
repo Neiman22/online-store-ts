@@ -7,7 +7,7 @@ import { ROUTES } from "../../utils/routes";
 import styles from "../../styles/Product.module.css";
 import { IProduct } from "../../store/types";
 import { useActions } from "../../hooks/actions";
-import { ItemCart } from "../../store/services/userSlice";
+import { ItemCart } from "../../store/types";
 import { useAppSelector } from "../../hooks/redux";
 
 const SIZES = [48, 50, 52, 54, 56];

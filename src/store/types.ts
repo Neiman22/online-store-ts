@@ -14,10 +14,23 @@ export interface IProduct {
 }
 
 export interface IUser {
-  "id": number;
-  "email": string;
-  "password": string;
-  "name": string;
-  "role": string;
-  "avatar": string;
+  id?: number;
+  email: string;
+  password: string;
+  name: string;
+  role?: string;
+  avatar: string;
+}
+
+export interface ItemCart {
+  product: IProduct;
+  quantities: number;
+}
+
+export interface UserState {
+  currentUser: IUser | null;
+  cart: ItemCart[];
+  favorites: IProduct[];
+  formType: string;
+  showForm: boolean;
 }

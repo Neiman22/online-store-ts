@@ -1,3 +1,4 @@
+import { useCreateUserMutation } from "../../store/services/userApi";
 import styles from "../../styles/User.module.css";
 import { ChangeEvent, useState } from "react";
 
@@ -8,10 +9,24 @@ const UserSignupForm = ({ closeForm } : {closeForm: () => void}) => {
     password: "",
     avatar: "",
   });
+  const [createUser] = useCreateUserMutation();
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  function handleChange (event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value});
+  }
+
+  const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
+    console.log(values);
+    event?.preventDefault()
+
+    const isNotEmpty = Object.values(values).every((val) => val)
+    
+    if (!isNotEmpty) return;
+
+    createUser(values);
+    closeForm();
+    console.log(values);
   }
 
   return (
@@ -22,7 +37,7 @@ const UserSignupForm = ({ closeForm } : {closeForm: () => void}) => {
         </svg>
       </div>
       <div className={styles.title}>Sign Up</div>
-      <form className={styles.form} onSubmit={() => {}}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.group}>
           <input
             type="email"
@@ -30,19 +45,19 @@ const UserSignupForm = ({ closeForm } : {closeForm: () => void}) => {
             name="email"
             value={values.email}
             autoComplete="off"
-            onChange={() => handleChange}
+            onChange={(e) => handleChange(e)}
             required
           />
         </div>
 
         <div className={styles.group}>
           <input
-            type="name"
+            type="text"
             placeholder="Your name"
             name="name"
             value={values.name}
             autoComplete="off"
-            onChange={() => handleChange}
+            onChange={(e) => handleChange(e)}
             required
           />
         </div>
@@ -54,7 +69,7 @@ const UserSignupForm = ({ closeForm } : {closeForm: () => void}) => {
             name="password"
             value={values.password}
             autoComplete="off"
-            onChange={() => handleChange}
+            onChange={(e) => handleChange(e)}
             required
           />
         </div>
@@ -66,7 +81,7 @@ const UserSignupForm = ({ closeForm } : {closeForm: () => void}) => {
             name="avatar"
             value={values.avatar}
             autoComplete="off"
-            onChange={() => handleChange}
+            onChange={(e) => handleChange(e)}
             required
           />
         </div>
