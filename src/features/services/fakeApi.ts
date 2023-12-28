@@ -13,7 +13,14 @@ export const fakeApi = createApi({
     getAllProducts: builder.query<IProduct[], null>({
       query: () => `/products`,
     }),
+    getProductByID: builder.query<IProduct, number>({
+      query: (id) => `/products/${id}`,
+    }),
   }),
 })
 
-export const { useGetAllCategoriesQuery, useGetAllProductsQuery } = fakeApi;
+export const { 
+  useGetAllCategoriesQuery, 
+  useGetAllProductsQuery,
+  useGetProductByIDQuery,
+} = fakeApi;
