@@ -6,18 +6,7 @@ import styles from '../../styles/Header.module.css';
 import LOGO from '../../images/logo.svg';
 import AVATAR from '../../images/avatar.jpg';
 
-import { useAppSelector } from '../../hooks/redux';
-import { useActions } from '../../hooks/actions';
-
 const Header = () => {
-  const { currentUser } = useAppSelector(state => state.user);
-  const { toggleForm } = useActions();
-
-  const handleClick = () => {
-    if(!currentUser) {
-      toggleForm(true)
-    }
-  }
 
   return (
     <div className={styles.header}>
@@ -28,7 +17,7 @@ const Header = () => {
       </div>
 
       <div className={styles.info}>
-        <div className={styles.user} onClick={handleClick}>
+        <div className={styles.user} onClick={() => {}}>
           <div 
             className={styles.avatar} 
             style={{ backgroundImage: `url(${AVATAR})` }}
@@ -55,6 +44,7 @@ const Header = () => {
 
           {false && <div className={styles.box}></div>}
         </form>
+
         <div className={styles.account}>
           <Link to={ROUTES.HOME} className={styles.favourites}>
             <svg className={styles["icon-fav"]}>
@@ -66,7 +56,7 @@ const Header = () => {
             <svg className={styles["icon-cart"]}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#bag`} />
             </svg>
-            <span className={styles.count}>2</span>
+            <span className={styles.count}>0</span>
           </Link>
         </div>
       </div>
