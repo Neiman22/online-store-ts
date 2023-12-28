@@ -4,7 +4,6 @@ import AppRoutes from "../Routes/AppRoutes";
 import Sidebar from "../Sidebar/Sidebar";
 
 //<UserForm />
-//<AppRoutes />
 const App = () => {  
   return (
     <div className="app">
@@ -12,7 +11,7 @@ const App = () => {
 
       <div className="container">
         <Sidebar />
-
+        <AppRoutes />
       </div>
       <Footer />
     </div>

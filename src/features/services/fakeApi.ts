@@ -13,4 +13,4 @@ export const fakeApi = createApi({
   }),
 })
 
-export const { useGetAllCategoriesQuery } = fakeApi
+export const { useGetAllCategoriesQuery } = fakeApi;

@@ -4,8 +4,10 @@ import styles from "../../styles/Sidebar.module.css";
 import { useGetAllCategoriesQuery } from "../../features/services/fakeApi";
 
 const Sidebar = () => {
-  const { data: categories } = useGetAllCategoriesQuery(null);
-
+  const response = useGetAllCategoriesQuery(null);
+  const categories = response.data;
+  console.log(response);
+  
   return (
     <section className={styles.sidebar}>
       <div className={styles.title}>CATEGORIES</div>

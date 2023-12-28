@@ -4,6 +4,7 @@
   height: 423px;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .title {
@@ -34,7 +35,7 @@
 }
 
 .footer {
-  margin-top: auto;
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
