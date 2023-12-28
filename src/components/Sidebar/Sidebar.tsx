@@ -6,7 +6,6 @@ import { useGetAllCategoriesQuery } from "../../features/services/fakeApi";
 const Sidebar = () => {
   const response = useGetAllCategoriesQuery(null);
   const categories = response.data;
-  console.log(response);
   
   return (
     <section className={styles.sidebar}>

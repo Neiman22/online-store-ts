@@ -12,3 +12,17 @@ export interface IProduct {
   category: ICategory;
   images: string[];
 }
+
+export interface IUser {
+  id: number;
+  email: string;
+  password: string,
+  name: string,
+  role: string,
+  avatar: string,
+}
+
+export interface ICartItem {
+  product: IProduct;
+  quantity: number;
+}

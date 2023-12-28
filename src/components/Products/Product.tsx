@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { ROUTES } from "../../utils/routes";
@@ -6,6 +6,8 @@ import { ROUTES } from "../../utils/routes";
 import styles from "../../styles/Product.module.css";
 
 import { IProduct } from "../../features/types/types";
+import { useAppDispatch } from '../../hooks/hooks';
+import { addProductToCart } from "../../features/user/userSlice";
 
 const SIZES = [48, 50, 52, 54, 56];
 
@@ -13,6 +15,9 @@ const Product = (item: IProduct) => {
   const { title, price, images, description } = item;
   const [currentImage, setCurrentImage] = useState(images[0]);
   const [currentSize, setCurrentSize] = useState<number | undefined>(undefined);
+
+  const dispatch = useAppDispatch();
+  const addToCart = () => dispatch(addProductToCart(item));
 
   return (
     <section className={styles.product}>
@@ -60,7 +65,7 @@ const Product = (item: IProduct) => {
 
         <div className={styles.actions}>
           <button
-            onClick={() => {}}
+            onClick={addToCart}
             className={styles.add}
             disabled={!currentSize}
           >

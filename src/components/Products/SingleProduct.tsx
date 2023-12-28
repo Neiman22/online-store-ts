@@ -12,10 +12,10 @@ const SingleProduct = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!isFetching && !isLoading && !isSuccess ) {
+    if (!isFetching && !isLoading && !isSuccess ) {
       navigate(ROUTES.HOME);
     }
-  },[isLoading, isFetching, isSuccess])
+  },[isLoading, isFetching, isSuccess, navigate])
 
   return !data ? (
     <section className="preloader">Loading...</section>
