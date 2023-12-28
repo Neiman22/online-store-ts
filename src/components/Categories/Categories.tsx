@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 
 import styles from "../../styles/Categories.module.css";
 
-/*
+import { ICategory } from "../../features/types/types";
+
 interface CategoriesProps {
   title: string;
-  categories: ICategory[];
+  categories: ICategory[] | undefined;
   amount: number;
 }
 
@@ -32,4 +33,3 @@ const Categories = ({ title, categories = [], amount }: CategoriesProps) => {
 };
 
 export default Categories;
-*/
