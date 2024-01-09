@@ -5,8 +5,18 @@ import styles from '../../styles/Header.module.css';
 
 import LOGO from '../../images/logo.svg';
 import AVATAR from '../../images/avatar.jpg';
+import { useAppSelector } from '../../hooks/hooks';
+import { useDispatch } from 'react-redux';
+import { toggleForm } from '../../features/user/userSlice';
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const { currentUser } = useAppSelector(({ user }) => user);
+  
+  const handleClick = () => {
+    if(!currentUser) dispatch(toggleForm(true));
+
+  }
 
   return (
     <div className={styles.header}>
@@ -17,7 +27,7 @@ const Header = () => {
       </div>
 
       <div className={styles.info}>
-        <div className={styles.user} onClick={() => {}}>
+        <div className={styles.user} onClick={handleClick}>
           <div 
             className={styles.avatar} 
             style={{ backgroundImage: `url(${AVATAR})` }}

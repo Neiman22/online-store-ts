@@ -14,11 +14,11 @@ export interface IProduct {
 }
 
 export interface IUser {
-  id: number;
+  id?: number;
   email: string;
   password: string,
   name: string,
-  role: string,
+  role?: string,
   avatar: string,
 }
 

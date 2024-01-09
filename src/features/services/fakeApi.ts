@@ -6,6 +6,7 @@ import { BASE_URL } from '../../utils/constants';
 export const fakeApi = createApi({
   reducerPath: 'fakeApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  tagTypes: ['User'],
   endpoints: (builder) => ({
     getAllCategories: builder.query<ICategory[], null>({
       query: () => `/categories`,
@@ -22,5 +23,5 @@ export const fakeApi = createApi({
 export const { 
   useGetAllCategoriesQuery, 
   useGetAllProductsQuery,
-  useGetProductByIDQuery,
+  useGetProductByIDQuery
 } = fakeApi;
