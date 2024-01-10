@@ -15,9 +15,8 @@ const Header = () => {
   
   const handleClick = () => {
     if(!currentUser) dispatch(toggleForm(true));
-
   }
-
+  
   return (
     <div className={styles.header}>
       <div className={styles.logo}>

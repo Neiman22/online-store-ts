@@ -1,12 +1,15 @@
 import { useState } from "react";
 import styles from "../../styles/User.module.css";
 import { IUser } from "../../features/types/types";
+import { useAppDispatch } from "../../hooks/hooks";
+import { createUser } from "../../features/user/userSlice";
 
 interface UserSignupFormProps {
   closeForm: () => void;
 }
 
 const UserSignupForm = ({ closeForm }: UserSignupFormProps) => {
+  const dispatch = useAppDispatch();
   const [values, setValues] = useState<IUser>({
     email: '',
     name: '',
@@ -19,6 +22,16 @@ const UserSignupForm = ({ closeForm }: UserSignupFormProps) => {
     setValues((prevValues) => ({ ...prevValues, [name]: value }))
   }
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  
+    const isNotEmpty = Object.values(values).every((val) => val);
+    if (!isNotEmpty) return;
+    
+    dispatch(createUser(values));
+    closeForm();
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.close} onClick={closeForm}>
@@ -29,7 +42,7 @@ const UserSignupForm = ({ closeForm }: UserSignupFormProps) => {
 
       <div className={styles.title}>Sign Up</div>
 
-      <form className={styles.form} onSubmit={() => {}}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.group}>
           <input
             type="email"

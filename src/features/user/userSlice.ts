@@ -24,7 +24,7 @@ const initialState: UserState = {
 
 export const createUser = createAsyncThunk(
   'users/createUser',
-  async (payload, thunkAPI) => {
+  async (payload: IUser, thunkAPI) => {
     try {
       const response = await axios.post(`${BASE_URL}/users/`, payload);
       return response.data;
@@ -54,7 +54,6 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(createUser.fulfilled, (state, { payload }) => {
       state.currentUser = payload;
-      state.isLoading = true;
     })
   }
 });
