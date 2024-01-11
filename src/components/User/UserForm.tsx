@@ -3,7 +3,7 @@ import UserSignupForm from "./UserSignupForm";
 import styles from "../../styles/User.module.css";
 import { useAppSelector } from "../../hooks/hooks";
 import { useDispatch } from "react-redux";
-import { toggleForm, toggleFormType } from "../../features/user/userSlice";
+import { TypesForm, toggleForm, toggleFormType } from "../../features/user/userSlice";
 import UserLoginForm from "./UserLoginForm";
 
 const UserForm = () => {
@@ -11,7 +11,7 @@ const UserForm = () => {
   const { showForm, formType } = useAppSelector(({ user }) => user);
 
   const closeForm = () => dispatch(toggleForm(false));
-  const toggleCurrentFormType = (type: string) => dispatch(toggleFormType(type));
+  const toggleCurrentFormType = (type: TypesForm) => dispatch(toggleFormType(type));
 
   return showForm ? (
     <>

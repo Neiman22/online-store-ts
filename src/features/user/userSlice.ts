@@ -4,12 +4,17 @@ import { ICartItem, IProduct, IUser } from '../types/types';
 import axios from 'axios';
 import { BASE_URL } from '../../utils/constants';
 
+export enum TypesForm {
+  login = 'login',
+  signup = 'signup'
+}
+
 interface UserState {
   currentUser: IUser | undefined;
   cart: ICartItem[];
   favourites: IProduct[];
   isLoading: boolean;
-  formType: string,
+  formType: TypesForm,
   showForm: boolean,
 }
 
@@ -18,7 +23,7 @@ const initialState: UserState = {
   cart: [],
   favourites: [],
   isLoading: false,
-  formType: 'signup',
+  formType: TypesForm.signup,
   showForm: false,
 }
 
@@ -68,7 +73,7 @@ export const userSlice = createSlice({
     toggleForm: (state, { payload }:  PayloadAction<boolean>) => {
       state.showForm = payload;
     },
-    toggleFormType: (state, { payload }:  PayloadAction<string>) => {
+    toggleFormType: (state, { payload }:  PayloadAction<TypesForm>) => {
       state.formType = payload;
     }
   },

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-import { loginUser } from "../../features/user/userSlice";
+import { TypesForm, loginUser } from "../../features/user/userSlice";
 
 import styles from "../../styles/User.module.css";
 import { useAppDispatch } from "../../hooks/hooks";
 
 interface UserLoginFormProps {
   closeForm: () => void;
-  toggleCurrentFormType: (type: string) => void; 
+  toggleCurrentFormType: (type: TypesForm) => void; 
 }
 
 const UserLoginForm = ({ closeForm, toggleCurrentFormType }: UserLoginFormProps) => {
@@ -69,7 +69,7 @@ const UserLoginForm = ({ closeForm, toggleCurrentFormType }: UserLoginFormProps)
         </div>
 
         <div
-          onClick={() => toggleCurrentFormType('signup')}
+          onClick={() => toggleCurrentFormType(TypesForm.signup)}
           className={styles.link}
         >
           Create an account

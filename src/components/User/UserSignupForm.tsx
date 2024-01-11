@@ -2,11 +2,11 @@ import { useState } from "react";
 import styles from "../../styles/User.module.css";
 import { IUser } from "../../features/types/types";
 import { useAppDispatch } from "../../hooks/hooks";
-import { createUser } from "../../features/user/userSlice";
+import { TypesForm, createUser } from "../../features/user/userSlice";
 
 interface UserSignupFormProps {
   closeForm: () => void;
-  toggleCurrentFormType: (type: string) => void; 
+  toggleCurrentFormType: (type: TypesForm) => void; 
 }
 
 const UserSignupForm = ({ closeForm, toggleCurrentFormType }: UserSignupFormProps) => {
@@ -94,7 +94,7 @@ const UserSignupForm = ({ closeForm, toggleCurrentFormType }: UserSignupFormProp
 
         <div
           className={styles.link}
-          onClick={() => toggleCurrentFormType('login')}
+          onClick={() => toggleCurrentFormType(TypesForm.login)}
         >
           I already have an account
         </div>
