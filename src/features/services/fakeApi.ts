@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import type { ICategory, IProduct } from '../types/types';
+import type { ICategory, IProduct, IUser } from '../types/types';
 import { BASE_URL } from '../../utils/constants';
 
 export const fakeApi = createApi({
@@ -17,11 +17,19 @@ export const fakeApi = createApi({
     getProductByID: builder.query<IProduct, number>({
       query: (id) => `/products/${id}`,
     }),
+    createUser: builder.mutation<IUser, IUser>({
+      query: (user) => ({
+        url: '/users',
+        method: 'POST',
+        body: user,
+      }),
+    }),
   }),
 })
 
 export const { 
   useGetAllCategoriesQuery, 
   useGetAllProductsQuery,
-  useGetProductByIDQuery
+  useGetProductByIDQuery,
+  useCreateUserMutation,
 } = fakeApi;

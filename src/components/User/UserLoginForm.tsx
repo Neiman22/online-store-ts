@@ -1,21 +1,20 @@
-import { useState } from "react";
-import styles from "../../styles/User.module.css";
-import { IUser } from "../../features/types/types";
-import { useAppDispatch } from "../../hooks/hooks";
-import { createUser } from "../../features/user/userSlice";
+import React, { useState } from "react";
 
-interface UserSignupFormProps {
+import { loginUser } from "../../features/user/userSlice";
+
+import styles from "../../styles/User.module.css";
+import { useAppDispatch } from "../../hooks/hooks";
+
+interface UserLoginFormProps {
   closeForm: () => void;
   toggleCurrentFormType: (type: string) => void; 
 }
 
-const UserSignupForm = ({ closeForm, toggleCurrentFormType }: UserSignupFormProps) => {
+const UserLoginForm = ({ closeForm, toggleCurrentFormType }: UserLoginFormProps) => {
   const dispatch = useAppDispatch();
-  const [values, setValues] = useState<IUser>({
-    email: '',
-    name: '',
-    password: '',
-    avatar: '',
+  const [values, setValues] = useState({
+    email: "",
+    password: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,13 +24,14 @@ const UserSignupForm = ({ closeForm, toggleCurrentFormType }: UserSignupFormProp
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     const isNotEmpty = Object.values(values).every((val) => val);
+
     if (!isNotEmpty) return;
-    
-    dispatch(createUser(values));
+
+    dispatch(loginUser(values));
     closeForm();
-  }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -41,7 +41,7 @@ const UserSignupForm = ({ closeForm, toggleCurrentFormType }: UserSignupFormProp
         </svg>
       </div>
 
-      <div className={styles.title}>Sign Up</div>
+      <div className={styles.title}>Log In</div>
 
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.group}>
@@ -50,18 +50,6 @@ const UserSignupForm = ({ closeForm, toggleCurrentFormType }: UserSignupFormProp
             placeholder="Your email"
             name="email"
             value={values.email}
-            autoComplete="off"
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className={styles.group}>
-          <input
-            type="text"
-            placeholder="Your name"
-            name="name"
-            value={values.name}
             autoComplete="off"
             onChange={handleChange}
             required
@@ -80,31 +68,19 @@ const UserSignupForm = ({ closeForm, toggleCurrentFormType }: UserSignupFormProp
           />
         </div>
 
-        <div className={styles.group}>
-          <input
-            type="text"
-            placeholder="Your avatar"
-            name="avatar"
-            value={values.avatar}
-            autoComplete="off"
-            onChange={handleChange}
-            required
-          />
-        </div>
-
         <div
+          onClick={() => toggleCurrentFormType('signup')}
           className={styles.link}
-          onClick={() => toggleCurrentFormType('login')}
         >
-          I already have an account
+          Create an account
         </div>
 
         <button type="submit" className={styles.submit}>
-          Create an account
+          Login
         </button>
       </form>
     </div>
   );
 };
 
-export default UserSignupForm;
+export default UserLoginForm;
