@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../utils/routes';
 
 import styles from '../../styles/Header.module.css';
@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { currentUser } = useAppSelector(({ user }) => user);
   const [values, setValues] = useState({ name: "Guest", avatar: AVATAR });
 
@@ -21,7 +22,11 @@ const Header = () => {
   }, [currentUser]);
   
   const handleClick = () => {
-    if(!currentUser) dispatch(toggleForm(true));
+    if(!currentUser) {
+      dispatch(toggleForm(true))
+    } else {
+      navigate(ROUTES.PROFILE);
+    }
   }
   
   return (
