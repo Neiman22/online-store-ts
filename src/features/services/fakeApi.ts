@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import type { ICategory, IProduct, IUser } from '../types/types';
+import type { ICategory, IProduct } from '../types/types';
 import { BASE_URL } from '../../utils/constants';
+import { buildUrl } from '../../utils/functions';
 
 export const fakeApi = createApi({
   reducerPath: 'fakeApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
-  tagTypes: ['User'],
   endpoints: (builder) => ({
     getAllCategories: builder.query<ICategory[], null>({
       query: () => `/categories`,
@@ -17,12 +17,8 @@ export const fakeApi = createApi({
     getProductByID: builder.query<IProduct, number>({
       query: (id) => `/products/${id}`,
     }),
-    createUser: builder.mutation<IUser, IUser>({
-      query: (user) => ({
-        url: '/users',
-        method: 'POST',
-        body: user,
-      }),
+    getSearchProducts: builder.query<IProduct[], object>({
+      query: (params) => buildUrl('/products', params),
     }),
   }),
 })
@@ -31,5 +27,5 @@ export const {
   useGetAllCategoriesQuery, 
   useGetAllProductsQuery,
   useGetProductByIDQuery,
-  useCreateUserMutation,
+  useGetSearchProductsQuery,
 } = fakeApi;
