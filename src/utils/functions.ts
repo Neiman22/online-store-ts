@@ -18,6 +18,6 @@ export const buildUrl = (url: string, params: object) => {
     const sign = !i ? "?" : "&";
     urlWithParams += `${sign}${key}=${value}`;
   })
-
+  console.log(urlWithParams);
   return urlWithParams;
 }

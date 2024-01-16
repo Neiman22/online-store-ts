@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 
 import { updateUser } from "../../features/user/userSlice";
 
 import styles from "../../styles/Profile.module.css";
-import { useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../utils/routes";
 
 const Profile = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { currentUser } = useAppSelector(({ user }) => user);
   const navigate = useNavigate();
 
@@ -38,7 +37,7 @@ const Profile = () => {
 
     if (!isNotEmpty) return;
 
-    dispatch(updateUser(values) as any);
+    dispatch(updateUser(values));
     navigate(ROUTES.HOME);
   };
 

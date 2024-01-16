@@ -1,13 +1,12 @@
 import UserSignupForm from "./UserSignupForm";
 
 import styles from "../../styles/User.module.css";
-import { useAppSelector } from "../../hooks/hooks";
-import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { TypesForm, toggleForm, toggleFormType } from "../../features/user/userSlice";
 import UserLoginForm from "./UserLoginForm";
 
 const UserForm = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { showForm, formType } = useAppSelector(({ user }) => user);
 
   const closeForm = () => dispatch(toggleForm(false));

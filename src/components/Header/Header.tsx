@@ -5,15 +5,14 @@ import styles from '../../styles/Header.module.css';
 
 import LOGO from '../../images/logo.svg';
 import AVATAR from '../../images/avatar.jpg';
-import { useAppSelector } from '../../hooks/hooks';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { toggleForm } from '../../features/user/userSlice';
 import { useEffect, useState } from 'react';
 import { useGetSearchProductsQuery } from '../../features/services/fakeApi';
 import { IUser } from '../../features/types/types';
 
 const Header = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   
   const [values, setValues] = useState<Partial<IUser>>({ name: "Guest", avatar: AVATAR });
