@@ -3,30 +3,45 @@ import styles from "../../styles/Category.module.css";
 import { useGetAllCategoriesQuery, useGetSearchProductsQuery } from "../../features/services/fakeApi";
 import { useEffect, useState } from "react";
 import Products from "../Products/Products";
+import { IProduct } from "../../features/types/types";
 
 const Category = () => {
   const { id } = useParams();
   const { data: categories } = useGetAllCategoriesQuery(null);
 
   const defaultValues = { title: '', price_min: 0, price_max: 0 };
-  const defaultParams = { ...defaultValues, categoryId: id };
+  const defaultParams = { ...defaultValues, categoryId: id, limit: 5, offset: 0  };
 
   const [cat, setCat] = useState('');
+  const [items, setItems] = useState<IProduct[]>([]);
+  const [isEnd, setIsEnd] = useState(false);
   const [values, setValues] = useState(defaultValues);
   const [params, setParams] = useState(defaultParams);
+  const { data, isLoading, isSuccess } = useGetSearchProductsQuery(params);
 
   useEffect(() => {
-    if(!id) return;
-    setParams((prevParams) => ({ ...prevParams, categoryId: id }));
+    if (!id) return;
+
+    setValues(defaultValues);
+    setItems([]);
+    setIsEnd(false);
+    setParams({ ...defaultParams, categoryId: id });
   }, [id]);
 
   useEffect(() => {
-    if(!id || !categories?.length) return;
-    const category = categories.find(item => item.id === Number(id));
-    if(category) setCat(category.name);
-  }, [categories, id])
+    if (isLoading) return;
 
-  const { data, isLoading, isSuccess } = useGetSearchProductsQuery(params);
+    if(!data?.length) return setIsEnd(true);
+
+    setItems((prevItems) => [...prevItems, ...data])
+  }, [data, isLoading]);
+
+  useEffect(() => {
+    if (id && categories?.length) {
+      const category = categories.find(item => item.id === Number(id));
+      if (category) setCat(category.name);
+    }
+  }, [categories, id])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,8 +50,16 @@ const Category = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setParams((prevParams) => ({ ...prevParams, ...values }));
+    setItems([]);
+    setIsEnd(false);
+    setParams({ ...defaultParams, ...values });
   };
+
+  const handleReset = () => {
+    setValues(defaultValues);
+    setParams(defaultParams);
+    setIsEnd(false);
+  }
 
   return (
     <section className={styles.wrapper}>
@@ -79,15 +102,22 @@ const Category = () => {
     {isLoading ? (
       <div className='preloader'>Loading...</div>
     ) : (
-      !isSuccess || !data.length ? (
+      !isSuccess || !items.length ? (
         <div className={styles.back}>
           <span>No Results</span>
-          <button>Reset</button>
+          <button onClick={handleReset}>Reset</button>
         </div>
       ) : (
-        <Products  title={''}  products={data} amount={data.length} />
+        <Products  title={''}  products={items} amount={items.length} />
       )
     )}
+
+    {!isEnd && (
+      <div className={styles.more}>
+        <button onClick={() => setParams({ ...params, offset: params.offset + params.limit})}>See more</button>
+      </div>
+    )}
+
     </section>
   )
 }

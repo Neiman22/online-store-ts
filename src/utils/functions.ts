@@ -1,4 +1,4 @@
-import { IProduct } from "../features/types/types"
+import { ICartItem, IProduct } from "../features/types/types"
 
 export const filterByPrice = (products: IProduct[] | undefined, maxPrice: number) => {
   return products?.filter(({ price }) => price < maxPrice);
@@ -18,6 +18,8 @@ export const buildUrl = (url: string, params: object) => {
     const sign = !i ? "?" : "&";
     urlWithParams += `${sign}${key}=${value}`;
   })
-  console.log(urlWithParams);
+  
   return urlWithParams;
 }
+
+export const sumBy = (arr: ICartItem[]) => arr.reduce((prev, cur) => prev + cur.quantity * cur.product.price, 0);

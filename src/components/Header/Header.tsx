@@ -12,6 +12,7 @@ import { useGetSearchProductsQuery } from '../../features/services/fakeApi';
 import { IUser } from '../../features/types/types';
 
 const Header = () => {
+  const { cart } = useAppSelector(({ user }) => user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   
@@ -111,7 +112,7 @@ const Header = () => {
             <svg className={styles["icon-cart"]}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#bag`} />
             </svg>
-            <span className={styles.count}>0</span>
+            {!!cart.length && <span className={styles.count}>{cart.length}</span>}
           </Link>
         </div>
       </div>

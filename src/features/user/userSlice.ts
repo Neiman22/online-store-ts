@@ -83,6 +83,13 @@ export const userSlice = createSlice({
         state.cart.push({ product: payload, quantity: 1})
       }
     },
+    changeQuantityToCart: (state, { payload }: PayloadAction<ICartItem>) => {
+      const existProduct = state.cart.find(item => item.product.id === payload.product.id);
+      if (existProduct) existProduct.quantity = payload.quantity;
+    },
+    removeProductFromCart: (state, { payload }: PayloadAction<IProduct>) => {
+      state.cart = state.cart.filter((item) => item.product.id !== payload.id);
+    },
     toggleForm: (state, { payload }:  PayloadAction<boolean>) => {
       state.showForm = payload;
     },
@@ -103,6 +110,12 @@ export const userSlice = createSlice({
   }
 });
 
-export const { addProductToCart, toggleForm, toggleFormType } = userSlice.actions;
+export const { 
+  addProductToCart, 
+  changeQuantityToCart, 
+  removeProductFromCart, 
+  toggleForm, 
+  toggleFormType 
+} = userSlice.actions;
 
 export default userSlice.reducer;
