@@ -108,14 +108,14 @@ const Header = () => {
             <svg className={styles["icon-fav"]}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#heart`} />
             </svg>
-            <span className={styles.count}>{favourites.length}</span>
+            {!!favourites.length && <span className={styles.countFav}>{favourites.length}</span>}
           </Link>
 
           <Link to={ROUTES.CART} className={styles.cart}>
             <svg className={styles["icon-cart"]}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#bag`} />
             </svg>
-            {!!cart.length && <span className={styles.count}>{cart.length}</span>}
+            {!!cart.length && <span className={styles.countCart}>{cart.length}</span>}
           </Link>
         </div>
       </div>

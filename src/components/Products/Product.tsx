@@ -6,17 +6,19 @@ import { ROUTES } from "../../utils/routes";
 import styles from "../../styles/Product.module.css";
 
 import { IProduct } from "../../features/types/types";
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { addProductToCart, addProductToFavourites } from "../../features/user/userSlice";
 
 const SIZES = [48, 50, 52, 54, 56];
 
 const Product = (item: IProduct) => {
   const dispatch = useAppDispatch();
+  const { favourites } = useAppSelector(({ user }) => user);
 
-  const { title, price, images, description } = item;
+  const { title, price, images, description, id } = item;
   const [currentImage, setCurrentImage] = useState(images[0]);
   const [currentSize, setCurrentSize] = useState<number | undefined>(undefined);
+  const inFav = favourites.find(item => item.id === id);
 
   useEffect(() => {
     setCurrentImage(item.images[0]);
@@ -80,7 +82,8 @@ const Product = (item: IProduct) => {
           </button>
           <button
             onClick={addToFavourites}
-            className={styles.add} 
+            className={styles.add}
+            disabled={!!inFav}
           >
             Add to favourites
           </button>
