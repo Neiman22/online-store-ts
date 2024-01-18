@@ -12,7 +12,7 @@ import { useGetSearchProductsQuery } from '../../features/services/fakeApi';
 import { IUser } from '../../features/types/types';
 
 const Header = () => {
-  const { cart } = useAppSelector(({ user }) => user);
+  const { cart, favourites } = useAppSelector(({ user }) => user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   
@@ -41,6 +41,8 @@ const Header = () => {
     setSearchValue(value);
   }
   
+  console.log(favourites);
+
   return (
     <div className={styles.header}>
       <div className={styles.logo}>
@@ -102,10 +104,11 @@ const Header = () => {
         </form>
 
         <div className={styles.account}>
-          <Link to={ROUTES.HOME} className={styles.favourites}>
+          <Link to={ROUTES.FAVORITES} className={styles.favourites}>
             <svg className={styles["icon-fav"]}>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#heart`} />
             </svg>
+            <span className={styles.count}>{favourites.length}</span>
           </Link>
 
           <Link to={ROUTES.CART} className={styles.cart}>

@@ -7,13 +7,12 @@ import styles from "../../styles/Product.module.css";
 
 import { IProduct } from "../../features/types/types";
 import { useAppDispatch } from '../../hooks/hooks';
-import { addProductToCart } from "../../features/user/userSlice";
+import { addProductToCart, addProductToFavourites } from "../../features/user/userSlice";
 
 const SIZES = [48, 50, 52, 54, 56];
 
 const Product = (item: IProduct) => {
   const dispatch = useAppDispatch();
-  const addToCart = () => dispatch(addProductToCart(item));
 
   const { title, price, images, description } = item;
   const [currentImage, setCurrentImage] = useState(images[0]);
@@ -24,6 +23,9 @@ const Product = (item: IProduct) => {
     setCurrentSize(undefined);
   }, [item])
 
+  const addToCart = () => dispatch(addProductToCart(item));
+  const addToFavourites = () => dispatch(addProductToFavourites(item));
+  
   return (
     <section className={styles.product}>
       <div className={styles.images}>
@@ -76,7 +78,12 @@ const Product = (item: IProduct) => {
           >
             Add to cart
           </button>
-          <button className={styles.favourite}>Add to favourites</button>
+          <button
+            onClick={addToFavourites}
+            className={styles.add} 
+          >
+            Add to favourites
+          </button>
         </div>
 
         <div className={styles.bottom}>

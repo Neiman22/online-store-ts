@@ -90,6 +90,12 @@ export const userSlice = createSlice({
     removeProductFromCart: (state, { payload }: PayloadAction<IProduct>) => {
       state.cart = state.cart.filter((item) => item.product.id !== payload.id);
     },
+    addProductToFavourites: (state, { payload }: PayloadAction<IProduct>) => {
+      state.favourites.push(payload);
+    },
+    removeProductFromFavourites: (state, { payload }: PayloadAction<IProduct>) => {
+      state.favourites = state.favourites.filter((item) => item.id !== payload.id);
+    },
     toggleForm: (state, { payload }:  PayloadAction<boolean>) => {
       state.showForm = payload;
     },
@@ -113,7 +119,9 @@ export const userSlice = createSlice({
 export const { 
   addProductToCart, 
   changeQuantityToCart, 
-  removeProductFromCart, 
+  removeProductFromCart,
+  addProductToFavourites,
+  removeProductFromFavourites,
   toggleForm, 
   toggleFormType 
 } = userSlice.actions;
