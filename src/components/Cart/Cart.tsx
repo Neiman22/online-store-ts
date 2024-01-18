@@ -7,7 +7,6 @@ import { sumBy } from "../../utils/functions";
 const Cart = () => {
   const { cart } = useAppSelector(({ user }) => user);
   const dispatch = useAppDispatch();
-  console.log(cart);
 
   const changeQuantity = (item: ICartItem, newQuantity: number) => {
     dispatch(changeQuantityToCart({ ...item, quantity: newQuantity }))

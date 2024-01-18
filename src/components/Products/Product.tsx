@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { ROUTES } from "../../utils/routes";
@@ -12,12 +12,16 @@ import { addProductToCart } from "../../features/user/userSlice";
 const SIZES = [48, 50, 52, 54, 56];
 
 const Product = (item: IProduct) => {
+  const dispatch = useAppDispatch();
+  const addToCart = () => dispatch(addProductToCart(item));
+
   const { title, price, images, description } = item;
   const [currentImage, setCurrentImage] = useState(images[0]);
   const [currentSize, setCurrentSize] = useState<number | undefined>(undefined);
 
-  const dispatch = useAppDispatch();
-  const addToCart = () => dispatch(addProductToCart(item));
+  useEffect(() => {
+    setCurrentImage(images[0]);
+  }, [images])
 
   return (
     <section className={styles.product}>

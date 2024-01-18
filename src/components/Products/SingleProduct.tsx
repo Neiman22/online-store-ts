@@ -20,7 +20,6 @@ const SingleProduct = () => {
   },[isLoading, isFetching, isSuccess, navigate])
 
   const { data: products } = useGetAllProductsQuery(null)
-
   if (!product) return <section className="preloader">Loading...</section>;
   const related = relatedProducts(products, product.category?.id);
   
