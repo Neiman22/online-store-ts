@@ -20,8 +20,9 @@ const Product = (item: IProduct) => {
   const [currentSize, setCurrentSize] = useState<number | undefined>(undefined);
 
   useEffect(() => {
-    setCurrentImage(images[0]);
-  }, [images])
+    setCurrentImage(item.images[0]);
+    setCurrentSize(undefined);
+  }, [item])
 
   return (
     <section className={styles.product}>
